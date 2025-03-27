@@ -1,0 +1,19 @@
+services:
+    OneToMany\PdfToImage\Action\RasterizeFileAction: ~
+
+    OneToMany\PdfToImage\MockRasterService:
+        tags:
+            - { name: 1tomany.raster_service, key: mock }
+
+    OneToMany\PdfToImage\PopplerRasterService:
+        tags:
+            - { name: 1tomany.raster_service, key: poppler }
+
+    OneToMany\PdfToImage\ServiceFactory:
+        arguments:
+            - !tagged_locator { tag: 1tomany.raster_service, index_by: key }
+
+    OneToMany\PdfToImage\RasterServiceInterface:
+        factory: ['@OneToMany\PdfToImage\ServiceFactory', 'create']
+        arguments:
+            - '%env(string:default:RASTER_SERVICE:poppler)%'
