@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services https://symfony.com/schema/dic/services/services-1.0.xsd">
+  <services>
+    <defaults autowire="true"/>
+    <service id="OneToMany\PdfToImage\Action\RasterizeFileAction"/>
+    <service id="OneToMany\PdfToImage\MockRasterService">
+      <tag name="1tomany.pdf.raster_service" key="mock"/>
+    </service>
+    <service id="OneToMany\PdfToImage\PopplerRasterService">
+      <tag name="1tomany.pdf.raster_service" key="poppler"/>
+    </service>
+    <service id="OneToMany\PdfToImage\ServiceFactory">
+      <argument type="tagged_iterator" tag="1tomany.pdf.raster_service" index-by="key"/>
+    </service>
+    <service id="OneToMany\PdfToImage\RasterServiceInterface">
+      <factory service="OneToMany\PdfToImage\ServiceFactory" method="create"/>
+      <argument>%env(string:default:RASTER_SERVICE:poppler)%</argument>
+    </service>
+  </services>
+</container>
