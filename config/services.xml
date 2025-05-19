@@ -6,16 +6,16 @@
   <services>
     <defaults autowire="true" autoconfigure="true"/>
     <service id="OneToMany\PdfToImage\Action\RasterizeFileAction"/>
-    <service id="OneToMany\PdfToImage\MockRasterService">
+    <service id="OneToMany\PdfToImage\Service\MockRasterService">
       <tag name="1tomany.raster_service" key="mock"/>
     </service>
-    <service id="OneToMany\PdfToImage\PopplerRasterService">
+    <service id="OneToMany\PdfToImage\Service\PopplerRasterService">
       <tag name="1tomany.raster_service" key="poppler"/>
     </service>
     <service id="OneToMany\PdfToImage\ServiceFactory">
       <argument type="tagged_locator" tag="1tomany.raster_service" index-by="key"/>
     </service>
-    <service id="OneToMany\PdfToImage\RasterServiceInterface">
+    <service id="OneToMany\PdfToImage\Service\RasterServiceInterface">
       <factory service="OneToMany\PdfToImage\ServiceFactory" method="create"/>
       <argument>%1tomany.rasterization_service%</argument>
     </service>
