@@ -16,7 +16,7 @@
     ],
     "require": {
         "php": ">=8.4",
-        "1tomany/pdf-to-image": "^0.2.0",
+        "1tomany/pdf-to-image": "^0.3.0",
         "symfony/dependency-injection": "^7.2",
         "symfony/http-kernel": "^7.2"
     },
